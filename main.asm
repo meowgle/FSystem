@@ -1,3 +1,5 @@
+   ; [FSystem v0.0.1]
+ 
    ; Copyright 2021-2022 Luther Fritsche
    ; 
    ; Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,7 +22,8 @@
    mov     dx, 4240h
    mov     ah, 86h
    int     15h
-   call background
+   call background ; set background
+   ; shell
    mov al, 70
    call print
    mov al, 83
@@ -35,6 +38,7 @@
    call wait_for_option
 
   wait_for_option:
+  ; wait for the p key
    mov ah,0 
    int 0x16
    cmp al, 112
@@ -43,6 +47,7 @@
    jg wait_for_option
 
    progm:
+   ;this is all text stuff nothing really special
    mov al, 80
    call print
    mov al, 82
@@ -67,11 +72,12 @@
    call print
    call print
    call print
+   ;clear flags before reading the program medium
    cld
    xor ax, ax    ; make sure ds is set to 0
    mov ds, ax
    cld
-   mov dl, 81h   ; hdd drive
+   mov dl, 81h   ; set to read our disk
    call read_disk
 
    read_disk: 
@@ -84,17 +90,18 @@
    xor bx, bx    
    mov es, bx    ; es should be 0
    mov bx, 7e00h ; 512bytes from origin address 7c00h
-   int 13h
-   call run_prog
+   int 13h ; read disk
+   call run_prog ; ready to execute our program!
 
    run_prog:
-   mov al, 13
+   ;newline
+   mov al, 13 
    call print
    mov al, 10
    call print
-   cld
+   cld ; clear flags before we jump
    jmp 7e00h
-   cld
+   cld ; clear flags and reset
    call start
 
    background:
@@ -102,11 +109,12 @@
    xor al, al     ; clear entire screen
    xor cx, cx     ; upper left corner ch=row, cl=column
    mov dx, 184fh  ; lower right corner dh=row, dl=column 
-   mov bh, 7fh    ; white on blue
+   mov bh, 7fh    ; white on grey
    int 10h
 
 
-   print:
+   print: 
+   ; printing stuff
    mov ah, 0x0e
    mov bh, 0x00
    mov bl, 0x09
