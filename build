@@ -1,0 +1,4 @@
+#!/bin/bash
+echo Compiling FSystem....
+nasm -f bin -o FSys.bin main.asm
+echo FSystem build complete!
