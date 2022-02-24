@@ -27,3 +27,7 @@ Do NOT attach additional disks to the system!
 # Commands
  
 p : load program
+
+# build
+
+To build FSystem run : ./build
