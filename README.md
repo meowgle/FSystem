@@ -31,3 +31,5 @@ p : load program
 # build
 
 To build FSystem run : ./build
+
+NOTICE : All projects by meowgle are no longer receiving updates.
